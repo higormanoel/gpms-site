@@ -1,0 +1,11 @@
+SITE GPMS - PACOTE HTML NATIVO
+
+Para publicar, envie todo o conteúdo desta pasta para a pasta pública do seu servidor (normalmente public_html, www ou htdocs).
+
+Arquivo inicial: index.html
+Tecnologias: HTML5, CSS3 e JavaScript puro
+Dependências externas: nenhuma
+
+O formulário abre o aplicativo de email do visitante com a mensagem preenchida. Para envio direto pelo servidor e reCAPTCHA real, será necessário conectar o formulário a um serviço de email ou ao backend do WordPress.
+
+O vídeo está no formato MP4/H.264, compatível com os navegadores modernos.
