@@ -1,11 +1,7 @@
 <?php
 declare(strict_types=1);
 
-$forwardedProto = strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''));
-$httpsValue = strtolower((string) ($_SERVER['HTTPS'] ?? ''));
-$isHttps = ($httpsValue !== '' && $httpsValue !== 'off')
-    || $forwardedProto === 'https'
-    || (int) ($_SERVER['SERVER_PORT'] ?? 0) === 443;
+$isHttps = (int) ($_SERVER['SERVER_PORT'] ?? 0) === 443;
 
 if (!$isHttps) {
     $requestedHost = (string) ($_SERVER['HTTP_HOST'] ?? 'gpms.com.br');
