@@ -40,11 +40,8 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-width: none;
-}
-
-html::-webkit-scrollbar {
-  display: none;
+  scrollbar-color: var(--gold) #e5e5e5;
+  scrollbar-width: thin;
 }
 
 body {
@@ -118,10 +115,16 @@ textarea {
 }
 
 .site-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 50;
   height: 83px;
   background: #ffffff;
+  box-shadow: 0 1px 0 rgba(49, 49, 49, 0.1);
+}
+
+section[id] {
+  scroll-margin-top: 83px;
 }
 
 .header-inner {
@@ -517,15 +520,15 @@ textarea {
 
 .approach-copy .body-copy {
   width: 540px;
-  margin-top: 42px;
+  margin-top: 30px;
 }
 
 .approach-copy .outline-button {
-  margin-top: 48px;
+  margin-top: 34px;
 }
 
 .gpms-section {
-  height: 815px;
+  height: 760px;
   background-image:
     linear-gradient(
       90deg,
@@ -559,7 +562,7 @@ textarea {
 
 .gpms-copy .body-copy {
   width: 520px;
-  margin-top: 45px;
+  margin-top: 34px;
 }
 
 .gpms-copy .second-paragraph {
@@ -568,16 +571,20 @@ textarea {
 
 .gpms-meeting {
   position: absolute;
-  top: 665px;
+  top: 590px;
   left: 0;
 }
 
 .founder-links {
   position: absolute;
   right: 0;
-  bottom: 107px;
+  bottom: 75px;
   display: flex;
   gap: 13px;
+}
+
+.founders-mobile-image {
+  display: none;
 }
 
 .founder-links a {
@@ -1026,6 +1033,10 @@ textarea:focus-visible {
     height: 72px;
   }
 
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+
   .brand,
   .brand img {
     width: 166px;
@@ -1301,7 +1312,7 @@ textarea:focus-visible {
 
 @media (max-width: 700px) {
   .container {
-    width: calc(100% - 36px);
+    width: calc(100% - 28px);
   }
 
   .hero {
@@ -1322,6 +1333,12 @@ textarea:focus-visible {
 
   .body-copy {
     font-size: 17px;
+  }
+
+  .section-title,
+  .about-copy h1 {
+    font-size: clamp(32px, 9vw, 40px);
+    overflow-wrap: normal;
   }
 
   .values-grid {
@@ -1352,16 +1369,19 @@ textarea:focus-visible {
   }
 
   .gpms-section {
-    min-height: 980px;
-    background-image:
-      linear-gradient(to bottom, rgba(49, 49, 49, 1) 0%, rgba(49, 49, 49, 0.98) 60%, rgba(49, 49, 49, 0.55) 100%),
-      url("../images/fundadores.png");
-    background-position: center, center bottom;
-    background-size: cover, auto 62%;
+    min-height: 0;
+    background-image: none;
   }
 
   .founder-links {
     grid-template-columns: 1fr;
+  }
+
+  .founders-mobile-image {
+    display: block;
+    width: calc(100% + 28px);
+    max-width: none;
+    margin: 48px -14px -64px;
   }
 
   .team-profile {

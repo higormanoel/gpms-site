@@ -1,2 +1,6 @@
 .DS_Store
 ._*
+/storage/*.php
+!/storage/.gitkeep
+/blog/uploads/*
+!/blog/uploads/.gitkeep
