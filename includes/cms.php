@@ -87,7 +87,10 @@ function gpms_canonical_blog_url(string $path = ''): string
 
 function gpms_asset_url(string $path): string
 {
-    return 'https://gpms.com.br/assets/' . ltrim($path, '/');
+    if (gpms_is_local()) {
+        return '/assets/' . ltrim($path, '/');
+    }
+    return 'https://gpms.com.br/gpms-release-20260803/assets/' . ltrim($path, '/');
 }
 
 function gpms_e(?string $value): string

@@ -28,4 +28,19 @@ if ($isHttps) {
     header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
 }
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'");
-readfile(__DIR__ . '/index.html');
+
+$html = (string) file_get_contents(__DIR__ . '/index.html');
+if (!$isLocal) {
+    $releaseBase = '/gpms-release-20260803/';
+    $html = str_replace(
+        ['href="assets/', 'src="assets/', 'action="contact.php"'],
+        [
+            'href="' . $releaseBase . 'assets/',
+            'src="' . $releaseBase . 'assets/',
+            'action="' . $releaseBase . 'contact.php"',
+        ],
+        $html
+    );
+}
+
+echo $html;
