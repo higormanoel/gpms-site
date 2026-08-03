@@ -39,6 +39,7 @@
 }
 
 html {
+  overflow-y: scroll;
   scroll-behavior: smooth;
   scrollbar-color: var(--gold) #e5e5e5;
   scrollbar-width: thin;
@@ -135,6 +136,8 @@ section[id] {
 }
 
 .brand {
+  position: relative;
+  z-index: 80;
   display: inline-flex;
   width: 184px;
   height: 40px;
@@ -912,35 +915,32 @@ section[id] {
   padding-left: 50px !important;
 }
 
-.captcha-placeholder {
+.privacy-consent {
   display: grid;
-  grid-template-columns: 29px 1fr 82px;
+  grid-template-columns: 24px 1fr;
   align-items: center;
-  width: 272px;
-  height: 69px;
-  padding: 9px 10px;
-  color: #222222;
-  background: #f7f7f7;
+  max-width: 500px;
+  min-height: 58px;
+  gap: 12px;
+  padding: 8px 0;
+  color: #d5d5d5;
   font-size: 13px;
+  line-height: 1.4;
 }
 
-.captcha-placeholder input {
-  width: 25px;
-  height: 25px;
+.privacy-consent input {
+  width: 22px;
+  height: 22px;
   margin: 0;
   accent-color: var(--gold);
 }
 
-.captcha-placeholder small {
-  color: #555555;
-  font-size: 8px;
-  line-height: 1.25;
-  text-align: center;
-}
-
-.captcha-placeholder small strong {
-  color: #3b5998;
-  font-size: 10px;
+.honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
 }
 
 .submit-button {
@@ -1418,8 +1418,19 @@ textarea:focus-visible {
     width: 100%;
   }
 
-  .captcha-placeholder {
+  .privacy-consent {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .team-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .team-profile > img {
+    width: 132px;
+    height: 138px;
   }
 }
 

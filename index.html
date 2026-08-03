@@ -276,7 +276,11 @@
             </address>
           </div>
 
-          <form class="contact-form" novalidate>
+          <form class="contact-form" action="contact.php" method="post" novalidate>
+            <label class="honeypot" aria-hidden="true">
+              <span>Não preencha este campo</span>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
             <label>
               <span class="sr-only">Seu nome</span>
               <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required />
@@ -294,10 +298,9 @@
               <span class="sr-only">Mensagem</span>
               <textarea name="mensagem" placeholder="Mensagem" required></textarea>
             </label>
-            <label class="captcha-placeholder">
-              <input type="checkbox" name="verificacao" required />
-              <span>Não sou um robô</span>
-              <small><strong>reCAPTCHA</strong><br />Privacidade - Termos</small>
+            <label class="privacy-consent">
+              <input type="checkbox" name="consentimento" value="1" required />
+              <span>Autorizo a GPMS a usar estes dados exclusivamente para responder ao meu contato.</span>
             </label>
             <button class="submit-button" type="submit">Enviar</button>
             <p class="form-status" role="status" aria-live="polite"></p>

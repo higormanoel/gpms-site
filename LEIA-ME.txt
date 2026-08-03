@@ -6,6 +6,6 @@ Arquivo inicial: index.html
 Tecnologias: HTML5, CSS3 e JavaScript puro
 Dependências externas: nenhuma
 
-O formulário abre o aplicativo de email do visitante com a mensagem preenchida. Para envio direto pelo servidor e reCAPTCHA real, será necessário conectar o formulário a um serviço de email ou ao backend do WordPress.
+O formulário envia a mensagem diretamente para gpms@gpms.com.br pelo servidor PHP.
 
 O vídeo está no formato MP4/H.264, compatível com os navegadores modernos.

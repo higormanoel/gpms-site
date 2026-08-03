@@ -18,9 +18,17 @@ function gpms_is_local(): bool
     return in_array(gpms_host(), ['localhost', '127.0.0.1'], true);
 }
 
+function gpms_is_https(): bool
+{
+    $forwarded = strtolower(trim(explode(',', (string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''))[0]));
+    return (int) ($_SERVER['SERVER_PORT'] ?? 0) === 443
+        || strtolower((string) ($_SERVER['HTTPS'] ?? '')) === 'on'
+        || $forwarded === 'https';
+}
+
 function gpms_force_https(): void
 {
-    if (gpms_is_local() || (int) ($_SERVER['SERVER_PORT'] ?? 0) === 443) {
+    if (gpms_is_local() || gpms_is_https()) {
         return;
     }
 
@@ -39,7 +47,7 @@ function gpms_security_headers(bool $admin = false): void
     header('Referrer-Policy: strict-origin-when-cross-origin');
     header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
     header('X-Frame-Options: DENY');
-    if ((int) ($_SERVER['SERVER_PORT'] ?? 0) === 443) {
+    if (gpms_is_https()) {
         header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
     }
 
@@ -146,9 +154,76 @@ function gpms_write_store(string $name, array $data): void
     @chmod($path, 0640);
 }
 
+function gpms_seed_posts(): array
+{
+    return [
+        [
+            'id' => 'gpms-seed-escuta-estrategia',
+            'title' => 'Conflitos familiares de alta complexidade: por que a escuta vem antes da estratégia',
+            'slug' => 'conflitos-familiares-escuta-antes-da-estrategia',
+            'excerpt' => 'Antes de propor caminhos jurídicos, é preciso compreender vínculos, silêncios, expectativas e riscos que sustentam o impasse.',
+            'category' => 'Mediação de conflitos',
+            'body' => "Conflitos familiares que envolvem patrimônio, empresas ou sucessão raramente são explicados apenas pelos fatos visíveis. Uma divergência sobre administração, partilha ou tomada de decisão pode carregar histórias antigas, papéis familiares rígidos e expectativas que nunca foram formuladas com clareza.\n\nPor isso, começar pela solução jurídica pronta costuma ser insuficiente. O primeiro trabalho é construir uma leitura do cenário: quem decide, quem se sente excluído, quais vínculos precisam ser preservados e quais riscos já ameaçam pessoas, patrimônio ou reputação.\n\n## Escutar não é adiar a decisão\n\nEscuta qualificada não significa prolongar indefinidamente uma conversa. Ela organiza o problema antes que as partes invistam energia em respostas para a pergunta errada. Ao separar posições declaradas de interesses reais, torna-se possível identificar os pontos negociáveis e os limites que precisam de proteção imediata.\n\nEm situações de alta complexidade, essa etapa também reduz ruídos. Cada pessoa passa a compreender o que está em jogo para as demais, mesmo quando não existe concordância. A negociação deixa de ser uma disputa de versões e ganha critérios mais objetivos.\n\n## O que uma leitura interdisciplinar acrescenta\n\nDireito, estratégia e compreensão das relações humanas oferecem ângulos diferentes do mesmo impasse. A análise jurídica delimita direitos, deveres e riscos. A leitura das relações revela padrões de comunicação, alianças e resistências. A estratégia conecta essas informações a decisões possíveis no tempo certo.\n\nEssa integração ajuda a responder perguntas essenciais:\n\n- O conflito exige contenção imediata ou há espaço para construção gradual?\n- Quais decisões são reversíveis e quais podem comprometer o patrimônio ou a relação?\n- Quem precisa participar da conversa para que um acordo seja sustentável?\n- O que deve permanecer confidencial para proteger pessoas e reputações?\n\n## Da compreensão ao caminho possível\n\nDepois de compreender a estrutura do conflito, a estratégia pode ser desenhada com mais precisão. Em alguns casos, o melhor caminho será uma mediação. Em outros, será necessário combinar negociação, reorganização patrimonial, protocolo familiar ou medidas jurídicas específicas.\n\nA qualidade da solução depende menos de uma fórmula universal e mais da coerência entre o caminho escolhido e a realidade daquela família. Escutar primeiro é o que permite agir com firmeza sem perder de vista os vínculos e o legado envolvidos.",
+            'featured_image' => 'asset:images/sobre.png',
+            'gallery' => [],
+            'video_url' => '',
+            'status' => 'published',
+            'published_at' => '2026-08-01T09:00:00-03:00',
+            'created_at' => '2026-08-01T09:00:00-03:00',
+            'updated_at' => '2026-08-01T09:00:00-03:00',
+        ],
+        [
+            'id' => 'gpms-seed-sucessao-legado',
+            'title' => 'Sucessão patrimonial: decisões que preservam vínculos e legados',
+            'slug' => 'sucessao-patrimonial-decisoes-que-preservam-vinculos-e-legados',
+            'excerpt' => 'Planejar a sucessão é organizar responsabilidades, expectativas e continuidade - não apenas distribuir bens.',
+            'category' => 'Sucessão e patrimônio',
+            'body' => "A sucessão patrimonial costuma ser lembrada quando uma urgência aparece: uma mudança de geração, uma doença, a necessidade de reorganizar uma empresa ou um conflito entre herdeiros. Quando o planejamento começa apenas nesse momento, decisões importantes passam a ser tomadas sob pressão.\n\nPlanejar com antecedência permite transformar um tema sensível em um processo de continuidade. Isso envolve documentos e estruturas jurídicas, mas também conversas sobre responsabilidade, participação, autonomia e futuro.\n\n## Patrimônio e significado caminham juntos\n\nUma empresa familiar, um imóvel ou uma coleção podem ter valores econômicos claros e, ao mesmo tempo, representar reconhecimento, pertencimento ou memória. Ignorar essa dimensão simbólica pode produzir resistências difíceis de compreender por uma análise exclusivamente financeira.\n\nUma condução cuidadosa identifica quais bens exigem tratamento técnico, quais decisões precisam ser compartilhadas e quais expectativas devem ser explicitadas. A transparência adequada reduz interpretações equivocadas e ajuda a distinguir afeto de responsabilidade patrimonial.\n\n## Perguntas que precisam vir antes dos instrumentos\n\nAntes de escolher holdings, doações, testamentos ou acordos, convém responder:\n\n- Qual legado a família deseja preservar?\n- Quem está preparado para administrar e quem prefere outra forma de participação?\n- Como serão tomadas decisões em momentos de divergência?\n- Que proteção cada geração necessita?\n- Quais informações podem ser compartilhadas e em que momento?\n\nOs instrumentos jurídicos ganham consistência quando respondem a objetivos compreendidos por todos os envolvidos. Sem essa base, estruturas formalmente corretas podem alimentar novos conflitos.\n\n## Governança como prática cotidiana\n\nSucessão não termina com a assinatura de documentos. Regras de governança, critérios de entrada na gestão, fóruns de conversa e mecanismos para tratar impasses ajudam a sustentar as escolhas ao longo do tempo.\n\nO melhor planejamento é aquele que protege o patrimônio sem transformar relações familiares em uma sequência de obrigações incompreendidas. Quando estratégia, direito e relações humanas são considerados em conjunto, a sucessão deixa de ser apenas transferência e passa a ser continuidade consciente.",
+            'featured_image' => 'asset:images/abordagem.png',
+            'gallery' => [],
+            'video_url' => '',
+            'status' => 'published',
+            'published_at' => '2026-07-24T10:30:00-03:00',
+            'created_at' => '2026-07-24T10:30:00-03:00',
+            'updated_at' => '2026-07-24T10:30:00-03:00',
+        ],
+        [
+            'id' => 'gpms-seed-conflito-societario',
+            'title' => 'Quando o conflito societário deixa de ser apenas jurídico',
+            'slug' => 'quando-o-conflito-societario-deixa-de-ser-apenas-juridico',
+            'excerpt' => 'Divergências entre sócios podem comprometer decisões, equipes e reputações antes mesmo de chegar ao processo judicial.',
+            'category' => 'Governança societária',
+            'body' => "Conflitos entre sócios nem sempre começam com uma infração contratual. Muitas vezes surgem de expectativas diferentes sobre crescimento, poder de decisão, dedicação ao negócio ou distribuição de resultados. Quando essas diferenças não encontram um espaço adequado de tratamento, o problema se espalha pela organização.\n\nA empresa sente os efeitos antes que o conflito seja formalizado. Decisões são adiadas, lideranças recebem orientações contraditórias e informações deixam de circular. Clientes, colaboradores e parceiros percebem a instabilidade, mesmo sem conhecer sua origem.\n\n## O contrato é essencial, mas não explica tudo\n\nAcordos societários e documentos de governança definem direitos e procedimentos. Eles são indispensáveis para delimitar responsabilidades e oferecer segurança. Ainda assim, a aplicação desses instrumentos ocorre entre pessoas com histórias, interesses e percepções próprias.\n\nUma estratégia consistente precisa considerar simultaneamente:\n\n- O que os documentos permitem e exigem;\n- O impacto financeiro de cada alternativa;\n- A continuidade operacional da empresa;\n- A comunicação com equipes e partes relacionadas;\n- A preservação da reputação dos envolvidos.\n\n## Sinais de que o impasse exige outra abordagem\n\nReuniões que repetem os mesmos argumentos, vetos usados como forma de pressão, decisões importantes tomadas fora dos fóruns adequados e exposição do conflito para funcionários são sinais de alerta. Nesses casos, insistir apenas na discussão técnica pode aprofundar a ruptura.\n\nA mediação ou a negociação estruturada cria um ambiente em que os interesses podem ser reorganizados sem perder os limites jurídicos. O objetivo não é evitar decisões difíceis, mas tomá-las com método, confidencialidade e clareza sobre as consequências.\n\n## Resolver também é proteger a operação\n\nUma solução societária deve permitir que a empresa continue funcionando durante e depois do conflito. Isso pode envolver revisão de governança, redefinição de funções, compra de participação, reorganização societária ou construção de uma saída negociada.\n\nQuando o impasse é compreendido em toda a sua complexidade, o direito deixa de atuar isoladamente e passa a integrar uma estratégia de proteção do negócio, das pessoas e da reputação construída ao longo do tempo.",
+            'featured_image' => 'asset:images/atuacao.png',
+            'gallery' => [],
+            'video_url' => '',
+            'status' => 'published',
+            'published_at' => '2026-07-16T08:45:00-03:00',
+            'created_at' => '2026-07-16T08:45:00-03:00',
+            'updated_at' => '2026-07-16T08:45:00-03:00',
+        ],
+        [
+            'id' => 'gpms-seed-direito-psicanalise',
+            'title' => 'Direito e psicanálise aplicada: uma leitura interdisciplinar do impasse',
+            'slug' => 'direito-e-psicanalise-aplicada-uma-leitura-interdisciplinar-do-impasse',
+            'excerpt' => 'Compreender a dimensão humana do conflito permite construir decisões juridicamente seguras e mais sustentáveis.',
+            'category' => 'Abordagem interdisciplinar',
+            'body' => "Em conflitos patrimoniais, familiares e societários, o que é dito nem sempre corresponde a tudo o que está sendo disputado. Uma posição aparentemente objetiva pode carregar necessidade de reconhecimento, medo de perda, ressentimento ou dificuldade de aceitar uma mudança de papel.\n\nO direito organiza limites, responsabilidades e possibilidades de solução. A psicanálise aplicada contribui para compreender como as pessoas se posicionam diante desses limites e por que determinados impasses resistem mesmo quando existe uma saída técnica disponível.\n\n## Uma contribuição prática\n\nAplicar uma leitura psicanalítica não significa transformar uma negociação em atendimento clínico. Trata-se de observar a dinâmica da fala, das repetições, dos silêncios e das relações de poder para conduzir melhor o processo de decisão.\n\nEssa compreensão pode ajudar a identificar:\n\n- Temas que não devem ser tratados em uma reunião conjunta logo no início;\n- Mensagens que precisam ser reformuladas para não ampliar resistências;\n- Pessoas cuja participação é essencial para legitimar uma decisão;\n- Momentos em que insistir na negociação aumenta o risco;\n- Condições mínimas para que um acordo seja realmente cumprido.\n\n## Segurança jurídica e sustentabilidade relacional\n\nUma solução juridicamente válida pode fracassar na prática se não considerar a forma como será recebida e executada. Da mesma maneira, um entendimento relacional sem estrutura jurídica pode deixar patrimônio e responsabilidades desprotegidos.\n\nO trabalho interdisciplinar aproxima essas duas exigências. A estratégia é construída para ser clara nos documentos, possível na realidade e compatível com a preservação dos vínculos que ainda importam.\n\n## Cada conflito possui sua própria estrutura\n\nNão existe um roteiro único para situações de alta complexidade. Algumas exigem rapidez e contenção. Outras pedem tempo para que interesses possam ser nomeados e reorganizados.\n\nA integração entre direito e psicanálise aplicada amplia a capacidade de leitura sem retirar objetividade da condução. Ao contrário: permite decidir com mais informação, reduzir movimentos impulsivos e construir caminhos que protejam pessoas, patrimônios e reputações.",
+            'featured_image' => 'asset:images/fundadores.png',
+            'gallery' => [],
+            'video_url' => '',
+            'status' => 'published',
+            'published_at' => '2026-07-08T14:00:00-03:00',
+            'created_at' => '2026-07-08T14:00:00-03:00',
+            'updated_at' => '2026-07-08T14:00:00-03:00',
+        ],
+    ];
+}
+
 function gpms_posts(): array
 {
-    $posts = gpms_read_store('posts.php');
+    $postsPath = gpms_store_path('posts.php');
+    $posts = is_file($postsPath) ? gpms_read_store('posts.php') : gpms_seed_posts();
     usort($posts, static function (array $a, array $b): int {
         return strcmp((string) ($b['published_at'] ?? $b['updated_at'] ?? ''), (string) ($a['published_at'] ?? $a['updated_at'] ?? ''));
     });
@@ -311,6 +386,10 @@ function gpms_image_url(?string $filename): string
     if (!$filename) {
         return '';
     }
+    if (strpos($filename, 'asset:') === 0) {
+        $asset = ltrim(substr($filename, 6), '/');
+        return gpms_asset_url($asset);
+    }
     $path = 'uploads/' . rawurlencode(basename($filename));
     if (strpos(gpms_host(), 'admin.') === 0) {
         return gpms_canonical_blog_url($path);
@@ -368,7 +447,7 @@ function gpms_uploaded_images(string $field, int $limit = 6): array
 
 function gpms_delete_image(?string $filename): void
 {
-    if (!$filename) {
+    if (!$filename || strpos($filename, 'asset:') === 0) {
         return;
     }
     $path = GPMS_UPLOADS . '/' . basename($filename);

@@ -124,7 +124,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--gold); }
 .auth-card .primary-button { margin-top: 1.25rem; }
 button:disabled { opacity: .65; cursor: wait; }
 
-.alert { margin: 0 0 1.5rem; padding: .9rem 1rem; border-left: 4px solid; background: #fff; }
+.alert { margin: 0 0 1.5rem; padding: .9rem 1rem; border: 1px solid; border-top-width: 3px; background: #fff; }
 .alert.error { color: #782525; border-color: var(--danger); background: #fff1f1; }
 .alert.success { color: #205e3c; border-color: var(--success); background: #eef8f2; }
 .auth-card .alert { margin-top: 1rem; }

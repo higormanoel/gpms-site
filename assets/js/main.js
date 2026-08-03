@@ -86,7 +86,7 @@
   }
 
   if (form && formStatus) {
-    form.addEventListener("submit", function (event) {
+    form.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       if (!form.checkValidity()) {
@@ -95,20 +95,30 @@
         return;
       }
 
-      const data = new FormData(form);
-      const subject = "Contato pelo site GPMS - " + data.get("nome");
-      const body = [
-        "Nome: " + data.get("nome"),
-        "Email: " + data.get("email"),
-        "Telefone: " + data.get("telefone"),
-        "",
-        "Mensagem:",
-        data.get("mensagem"),
-      ].join("\n");
+      const submit = form.querySelector('button[type="submit"]');
+      if (submit) submit.disabled = true;
+      formStatus.textContent = "Enviando sua mensagem com segurança...";
 
-      formStatus.textContent = "Abrindo seu aplicativo de email...";
-      window.location.href =
-        "mailto:gpms@gpms.com.br?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        const payload = await response.json();
+        if (!response.ok || !payload.success) {
+          throw new Error(payload.message || "Não foi possível enviar a mensagem.");
+        }
+        form.reset();
+        formStatus.textContent = payload.message;
+      } catch (error) {
+        formStatus.textContent =
+          error instanceof Error
+            ? error.message
+            : "Não foi possível enviar agora. Fale conosco por email ou WhatsApp.";
+      } finally {
+        if (submit) submit.disabled = false;
+      }
     });
   }
 })();

@@ -41,6 +41,7 @@ if (!$isNotFound) {
   <meta name="description" content="<?= gpms_e((string) ($post['excerpt'] ?: gpms_excerpt((string) $post['body']))) ?>">
   <?php if (!$isNotFound): ?><link rel="canonical" href="<?= gpms_e(gpms_canonical_blog_url('artigo.php?slug=' . rawurlencode((string) $post['slug']))) ?>"><?php endif; ?>
   <link rel="stylesheet" href="blog.css">
+  <script src="blog.js" defer></script>
   <title><?= gpms_e((string) $post['title']) ?> | GPMS</title>
 </head>
 <body>
@@ -50,10 +51,17 @@ if (!$isNotFound) {
       <a class="brand" href="https://gpms.com.br/" aria-label="GPMS — página inicial">
         <img src="<?= gpms_e(gpms_asset_url('images/logo.png')) ?>" alt="GPMS — Grupo Massoni Silva" width="184" height="40">
       </a>
-      <nav aria-label="Navegação do blog">
-        <a class="current" href="<?= gpms_e(gpms_blog_url()) ?>">Conteúdo</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="blog-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="blog-nav" aria-label="Navegação principal">
+        <a href="https://gpms.com.br/#sobre">Sobre</a>
+        <a href="https://gpms.com.br/#atuacao">Atuação</a>
+        <a href="https://gpms.com.br/#abordagem">Abordagem</a>
         <a href="https://gpms.com.br/#a-gpms">A GPMS</a>
-        <a class="header-cta" href="https://gpms.com.br/#contato">Agende uma reunião</a>
+        <a class="current" href="<?= gpms_e(gpms_blog_url()) ?>">Conteúdo</a>
+        <a href="https://gpms.com.br/#contato">Contato</a>
       </nav>
     </div>
   </header>
@@ -69,7 +77,7 @@ if (!$isNotFound) {
 
       <?php if (!$isNotFound && !empty($post['featured_image'])): ?>
         <figure class="article-cover shell">
-          <img src="<?= gpms_e(gpms_image_url((string) $post['featured_image'])) ?>" alt="">
+          <img src="<?= gpms_e(gpms_image_url((string) $post['featured_image'])) ?>" alt="Imagem do artigo <?= gpms_e((string) $post['title']) ?>">
         </figure>
       <?php endif; ?>
 

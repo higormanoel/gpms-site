@@ -30,6 +30,7 @@ $featured = ($query === '' && $category === '' && $posts) ? array_shift($posts) 
   <link rel="canonical" href="<?= gpms_e(gpms_canonical_blog_url()) ?>">
   <link rel="preload" href="<?= gpms_e(gpms_asset_url('fonts/open-sans-400.woff2')) ?>" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="blog.css">
+  <script src="blog.js" defer></script>
   <title>Conteúdo | GPMS</title>
 </head>
 <body>
@@ -39,10 +40,17 @@ $featured = ($query === '' && $category === '' && $posts) ? array_shift($posts) 
       <a class="brand" href="https://gpms.com.br/" aria-label="GPMS — página inicial">
         <img src="<?= gpms_e(gpms_asset_url('images/logo.png')) ?>" alt="GPMS — Grupo Massoni Silva" width="184" height="40">
       </a>
-      <nav aria-label="Navegação do blog">
-        <a class="current" href="<?= gpms_e(gpms_blog_url()) ?>">Conteúdo</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="blog-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Abrir menu</span>
+      </button>
+      <nav id="blog-nav" aria-label="Navegação principal">
+        <a href="https://gpms.com.br/#sobre">Sobre</a>
+        <a href="https://gpms.com.br/#atuacao">Atuação</a>
+        <a href="https://gpms.com.br/#abordagem">Abordagem</a>
         <a href="https://gpms.com.br/#a-gpms">A GPMS</a>
-        <a class="header-cta" href="https://gpms.com.br/#contato">Agende uma reunião</a>
+        <a class="current" href="<?= gpms_e(gpms_blog_url()) ?>">Conteúdo</a>
+        <a href="https://gpms.com.br/#contato">Contato</a>
       </nav>
     </div>
   </header>
@@ -85,7 +93,7 @@ $featured = ($query === '' && $category === '' && $posts) ? array_shift($posts) 
         <article class="featured-post">
           <a class="featured-media" href="artigo.php?slug=<?= rawurlencode((string) $featured['slug']) ?>">
             <?php if (!empty($featured['featured_image'])): ?>
-              <img src="<?= gpms_e(gpms_image_url((string) $featured['featured_image'])) ?>" alt="" loading="eager">
+              <img src="<?= gpms_e(gpms_image_url((string) $featured['featured_image'])) ?>" alt="Imagem do artigo <?= gpms_e((string) $featured['title']) ?>" loading="eager">
             <?php else: ?>
               <span aria-hidden="true">GPMS</span>
             <?php endif; ?>
@@ -105,7 +113,7 @@ $featured = ($query === '' && $category === '' && $posts) ? array_shift($posts) 
             <article class="post-card">
               <a class="post-media" href="artigo.php?slug=<?= rawurlencode((string) $post['slug']) ?>">
                 <?php if (!empty($post['featured_image'])): ?>
-                  <img src="<?= gpms_e(gpms_image_url((string) $post['featured_image'])) ?>" alt="" loading="lazy">
+                  <img src="<?= gpms_e(gpms_image_url((string) $post['featured_image'])) ?>" alt="Imagem do artigo <?= gpms_e((string) $post['title']) ?>" loading="lazy">
                 <?php else: ?>
                   <span aria-hidden="true">GPMS</span>
                 <?php endif; ?>

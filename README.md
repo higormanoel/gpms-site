@@ -28,4 +28,4 @@ Site institucional e blog próprio do Grupo Massoni Silva, preparados para publi
 
 ## Formulário
 
-O formulário abre o aplicativo de e-mail do visitante. Para envio direto pelo servidor e reCAPTCHA real, será necessário conectá-lo a um backend ou serviço de formulários.
+O formulário envia a mensagem diretamente para `gpms@gpms.com.br` por PHP, com validação no cliente e no servidor, campo anti-spam invisível e limite de frequência por IP. O visitante não depende de aplicativo de email.
