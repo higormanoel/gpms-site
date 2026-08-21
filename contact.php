@@ -64,7 +64,7 @@ $body = "Novo contato recebido pelo site GPMS\n\n"
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
-    'From: Site GPMS <site@gpms.com.br>',
+    'From: Formulário GPMS <gpms@gpms.com.br>',
     'Reply-To: ' . $email,
     'X-Mailer: PHP/' . PHP_VERSION,
 ];
