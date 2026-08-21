@@ -777,7 +777,7 @@ section[id] {
   margin-top: 29px;
 }
 
-.content-card > a {
+.content-card > .content-card-action {
   position: absolute;
   right: 15px;
   bottom: 17px;
@@ -797,8 +797,8 @@ section[id] {
   transition: background 160ms ease;
 }
 
-.content-card > a:hover,
-.content-card > a:focus-visible {
+.content-card > a.content-card-action:hover,
+.content-card > a.content-card-action:focus-visible {
   background: #9e834e;
 }
 
@@ -1143,7 +1143,7 @@ textarea:focus-visible {
 
   .about-section,
   .approach-section {
-    min-height: 620px;
+    min-height: 0;
     background-size: 100% 100%, cover;
   }
 
@@ -1321,7 +1321,6 @@ textarea:focus-visible {
 
   .about-section,
   .approach-section {
-    min-height: 650px;
     background-position: center, 64% center;
   }
 
