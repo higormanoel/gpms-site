@@ -612,7 +612,6 @@ section[id] {
 
 .team-section {
   height: 369px;
-  border-top: 5px solid #ffffff;
 }
 
 .team-eyebrow {
@@ -1259,10 +1258,6 @@ textarea:focus-visible {
     width: 100%;
     padding: 0 12px;
     font-size: 14px;
-  }
-
-  .team-section {
-    border-top-width: 4px;
   }
 
   .team-section .section-stage {
